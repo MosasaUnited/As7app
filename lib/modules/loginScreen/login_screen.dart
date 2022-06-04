@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                           copyWith(color: Colors.black87),
                         ),
                         Text(
-                          'Login Now to Connect With Your As7app ;)',
+                          'Login Now to Connect With Your Friends ;)',
                           style: Theme.of(context).textTheme.bodyText1!.
                           copyWith(color: Colors.grey,),
                         ),

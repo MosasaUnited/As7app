@@ -41,7 +41,7 @@ class Register extends StatelessWidget {
                           copyWith(color: Colors.black87),
                         ),
                         Text(
-                          'Register now to browse our hot offers',
+                          'Register Now to Communicate With Friends',
                           style: Theme.of(context).textTheme.bodyText1!.
                           copyWith(color: Colors.grey,),
                         ),
