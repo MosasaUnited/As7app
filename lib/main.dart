@@ -12,7 +12,9 @@ void main() async{
   //to confirm that everything in method is fine to open app
   WidgetsFlutterBinding.ensureInitialized();
   //firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }
@@ -43,11 +45,11 @@ class MyApp extends StatelessWidget {
                     imageSrc: "assets/images/splashScreen.png",
                     text: "As7app",
                     textType: TextType.ColorizeAnimationText,
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 70.0,
                       fontStyle: FontStyle.normal,
                     ),
-                    colors: [
+                    colors: const [
                       Colors.purple,
                       Colors.blue,
                       Colors.yellow,

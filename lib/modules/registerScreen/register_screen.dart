@@ -10,7 +10,7 @@ class Register extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
   var emailController = TextEditingController();
-  var nameController = TextEditingController();
+  var userNameController = TextEditingController();
   var passwordController = TextEditingController();
   var phoneController = TextEditingController();
 
@@ -49,16 +49,16 @@ class Register extends StatelessWidget {
                           height: 30.0,
                         ),
                         defaultFormField(
-                          controller: nameController,
+                          controller: userNameController,
                           type: TextInputType.name,
                           validate: (value)
                           {
                             if(value!.isEmpty)
                             {
-                              return 'please enter your Name';
+                              return 'please enter your User Name';
                             }
                           },
-                          label: 'Name',
+                          label: 'User Name',
                           prefix: Icons.person,
                         ),
                         SizedBox(
@@ -125,12 +125,12 @@ class Register extends StatelessWidget {
                             function: () {
                               if (formKey.currentState!.validate())
                               {
-                                // SocialRegisterCubit.get(context).userRegister(
-                                //   email: emailController.text,
-                                //   password: passwordController.text,
-                                //   phone: phoneController.text,
-                                //   name: nameController.text,
-                                // );
+                                SocialRegisterCubit.get(context).userRegister(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  phone: phoneController.text,
+                                  name: userNameController.text,
+                                );
                               }
                             },
                             text: 'Register',
