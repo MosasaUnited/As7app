@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
                           copyWith(color: Colors.black87),
                         ),
                         Text(
-                          'Login Now to Connect With Your Friends ;)',
+                          'Login Now to Connect With Your Friends',
                           style: Theme.of(context).textTheme.bodyText1!.
                           copyWith(color: Colors.grey,),
                         ),
