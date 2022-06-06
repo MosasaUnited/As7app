@@ -1,3 +1,4 @@
+import 'package:as7app/layout/social_home_layout.dart';
 import 'package:as7app/modules/registerScreen/cubitRegisterScreen/register_states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +22,12 @@ class Register extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => SocialRegisterCubit(),
       child: BlocConsumer<SocialRegisterCubit, SocialRegisterStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is SocialCreatUserSuccess)
+          {
+            navigateAndFinish(context, SocialLayout());
+          }
+        },
         builder: (context, state)
         {
           return Scaffold(
