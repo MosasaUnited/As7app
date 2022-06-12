@@ -1,7 +1,6 @@
 import 'package:as7app/layout/social_home_layout.dart';
 import 'package:as7app/modules/registerScreen/cubitRegisterScreen/register_states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/components/components.dart';
