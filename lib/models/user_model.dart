@@ -4,12 +4,15 @@ class SocialUserModel
   String? email;
   String? phone;
   String? uId;
+  bool? isEmailVerified;
 
   SocialUserModel({
     this.email,
     this.name,
     this.phone,
     this.uId,
+    this.isEmailVerified,
+
 });
 
   SocialUserModel.fromJson(Map<String, dynamic> json)
@@ -18,6 +21,7 @@ class SocialUserModel
     name = json['name'];
     phone = json['email'];
     uId = json['uId'];
+    isEmailVerified = json['isEmailVerified'];
   }
 
   Map<String, dynamic> toMap()
@@ -27,6 +31,7 @@ class SocialUserModel
       'email' : email,
       'phone' : phone,
       'uId' : uId,
+      'isEmailVerified' : isEmailVerified,
     };
   }
 }

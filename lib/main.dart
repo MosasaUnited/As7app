@@ -1,3 +1,4 @@
+import 'package:as7app/network/local/cache_helper.dart';
 import 'package:as7app/shared/cubit/app_cubit.dart';
 import 'package:as7app/shared/cubit/states.dart';
 import 'package:as7app/shared/styles/themes.dart';
@@ -6,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'firebase_options.dart';
+import 'layout/social_home_layout.dart';
 import 'modules/loginScreen/login_screen.dart';
 
 void main() async{
@@ -16,11 +18,30 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  await CacheHelper.init();
+
+  Widget? widget;
+
+  var uId = CacheHelper.getData(key: 'uId');
+
+
+  if(uId != null)
+  {
+    widget = SocialLayout();
+  }
+  else{
+    widget = LoginScreen();
+  }
+
+  runApp(MyApp(
+    startWidget: widget,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final Widget startWidget;
+
+  const MyApp({Key? key, required this.startWidget}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -38,7 +59,7 @@ class MyApp extends StatelessWidget {
                   themeMode:
                   AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
                   home: SplashScreenView(
-                    navigateRoute: LoginScreen(),
+                    navigateRoute: startWidget,
                     duration: 5000,
                     imageSize: 130,
                     // you must add image path first on pubspec.yaml

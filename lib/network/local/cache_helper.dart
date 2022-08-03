@@ -17,7 +17,7 @@ class CacheHelper
     return await sharedPreferences!.setBool(key, value);
   }
 
-  static dynamic getData(String key){
+  static dynamic getData({required String key}){
     return sharedPreferences!.get(key);
   }
 

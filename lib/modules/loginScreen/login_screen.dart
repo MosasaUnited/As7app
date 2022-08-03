@@ -4,6 +4,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../layout/social_home_layout.dart';
+import '../../network/local/cache_helper.dart';
 import '../../shared/components/components.dart';
 import 'cubitLoginScreen/login_screen_cubit.dart';
 
@@ -24,6 +26,17 @@ class LoginScreen extends StatelessWidget {
             showToast(text: state.error,
                 state: ToastStates.ERROR,);
           }
+        if(state is SocialLoginSuccess) {
+          CacheHelper.saveData(
+            key: 'uId',
+            value: state.uId,
+          ).then((value) {
+            navigateAndFinish(
+              context,
+              SocialLayout(),
+            );
+          });
+        }
         },
         builder: (context, state)
         {
