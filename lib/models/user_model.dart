@@ -15,13 +15,13 @@ class SocialUserModel
 
 });
 
-  SocialUserModel.fromJson(Map<String, dynamic> json)
+  SocialUserModel.fromJson(Map<String, dynamic>? json)
   {
-    email = json['email'];
-    name = json['name'];
-    phone = json['email'];
-    uId = json['uId'];
-    isEmailVerified = json['isEmailVerified'];
+    email = json?['email'];
+    name = json?['name'];
+    phone = json?['email'];
+    uId = json?['uId'];
+    isEmailVerified = json?['isEmailVerified'];
   }
 
   Map<String, dynamic> toMap()
