@@ -24,45 +24,10 @@ class SocialLayout extends StatelessWidget {
           condition: SocialCubit.get(context).model != null,
           builder: (context)
           {
-            var model = SocialCubit.get(context).model;
-
             return Column(
-              children: [
-                if(!FirebaseAuth.instance.currentUser!.emailVerified)
-                  Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.info_outline,
-                        ),
-                        Expanded(
-                          child: Text(
-                              'Please Verify Your Email'),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        defaultButton(
-                            width: 70.0,
-                            function: ()
-                            {
-                              FirebaseAuth.instance.currentUser?.sendEmailVerification()
-                                  .then((value) {
-                                showToast(text: 'check your email',
-                                  state: ToastStates.SUCCESS,
-                                );
-                              }).catchError((error) {});
-                            },
-                            text: 'Send'),
-                      ],
-                    ),
-                  ),
-                ),
+              children:
+              [
+
               ],
             );
           },

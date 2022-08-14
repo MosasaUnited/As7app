@@ -19,10 +19,11 @@ ThemeData lighttheme = ThemeData(
         color: Colors.black
     ),
     titleTextStyle: TextStyle(
+      fontFamily: 'Jannah',
       color: Colors.black,
       fontSize: 20.0,
       fontWeight: FontWeight.w900,
-      fontStyle: FontStyle.italic,
+      fontStyle: FontStyle.normal,
 
     ),
 
@@ -68,10 +69,11 @@ ThemeData darktheme = ThemeData(
       color: Colors.white,
     ),
     titleTextStyle: TextStyle(
+      fontFamily: 'Jannah',
       color: Colors.white,
       fontSize: 20.0,
       fontWeight: FontWeight.w900,
-      fontStyle: FontStyle.italic,
+      fontStyle: FontStyle.normal,
 
     ),
 

@@ -80,6 +80,9 @@ flutter:
       fonts:
         - asset: assets/fonts/ArbFONTS-Janna-LT-Regular.ttf
           weight: 700
+    - family: IconBroken
+      fonts:
+          - asset: assets/fonts/icons.ttf
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
