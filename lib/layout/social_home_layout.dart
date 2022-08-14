@@ -2,6 +2,7 @@ import 'package:as7app/cubit/cubit.dart';
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +28,7 @@ class SocialLayout extends StatelessWidget {
 
             return Column(
               children: [
-                if(!model.isEmailVerified)
+                if(!FirebaseAuth.instance.currentUser!.emailVerified)
                   Container(
                   color: Colors.white,
                   child: Padding(
@@ -48,7 +49,15 @@ class SocialLayout extends StatelessWidget {
                         ),
                         defaultButton(
                             width: 70.0,
-                            function: (){},
+                            function: ()
+                            {
+                              FirebaseAuth.instance.currentUser?.sendEmailVerification()
+                                  .then((value) {
+                                showToast(text: 'check your email',
+                                  state: ToastStates.SUCCESS,
+                                );
+                              }).catchError((error) {});
+                            },
                             text: 'Send'),
                       ],
                     ),
