@@ -2,6 +2,8 @@ import 'package:as7app/shared/components/components.dart';
 import 'package:as7app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/styles/icon_broken.dart';
+
 class FeedsScreen extends StatelessWidget {
 
   @override
@@ -9,6 +11,7 @@ class FeedsScreen extends StatelessWidget {
   {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
       child: Column(
         children:
         [
@@ -107,17 +110,138 @@ class FeedsScreen extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                  MaterialButton(
-                      onPressed: (){},
-                      height: 25.0,
-                      minWidth: 1.0,
-                      padding: EdgeInsets.zero,
-                      child: Text(
-                        '#software',
-                        style: TextStyle(
-                          color: defaultColor,
-                        ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10.0,
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      child: Wrap(
+                        children:
+                        [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              end: 6.0,
+                            ),
+                            child: Container(
+                              height: 20.0,
+                              child: MaterialButton(
+                                onPressed: (){},
+                                height: 25.0,
+                                minWidth: 1.0,
+                                padding: EdgeInsets.zero,
+                                child: Text(
+                                  '#software',
+                                  style: Theme.of(context).textTheme.caption!.copyWith(
+                                    color: defaultColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              end: 6.0,
+                            ),
+                            child: Container(
+                              height: 20.0,
+                              child: MaterialButton(
+                                onPressed: (){},
+                                height: 25.0,
+                                minWidth: 1.0,
+                                padding: EdgeInsets.zero,
+                                child: Text(
+                                  '#devleoper ',
+                                  style: Theme.of(context).textTheme.caption!.copyWith(
+                                    color: defaultColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              end: 6.0,
+                            ),
+                            child: Container(
+                              height: 20.0,
+                              child: MaterialButton(
+                                onPressed: (){},
+                                height: 25.0,
+                                minWidth: 1.0,
+                                padding: EdgeInsets.zero,
+                                child: Text(
+                                  '#engineer',
+                                  style: Theme.of(context).textTheme.caption!.copyWith(
+                                    color: defaultColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              end: 6.0,
+                            ),
+                            child: Container(
+                              height: 20.0,
+                              child: MaterialButton(
+                                onPressed: (){},
+                                height: 25.0,
+                                minWidth: 1.0,
+                                padding: EdgeInsets.zero,
+                                child: Text(
+                                  '#motivation',
+                                  style: Theme.of(context).textTheme.caption!.copyWith(
+                                    color: defaultColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              end: 6.0,
+                            ),
+                            child: Container(
+                              height: 20.0,
+                              child: MaterialButton(
+                                onPressed: (){},
+                                height: 25.0,
+                                minWidth: 1.0,
+                                padding: EdgeInsets.zero,
+                                child: Text(
+                                  '#flutter',
+                                  style: Theme.of(context).textTheme.caption!.copyWith(
+                                    color: defaultColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              end: 6.0,
+                            ),
+                            child: Container(
+                              height: 20.0,
+                              child: MaterialButton(
+                                onPressed: (){},
+                                height: 25.0,
+                                minWidth: 1.0,
+                                padding: EdgeInsets.zero,
+                                child: Text(
+                                  '#let\'sdoit',
+                                  style: Theme.of(context).textTheme.caption!.copyWith(
+                                    color: defaultColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
                   ),
                   Container(
                     height: 140.0,
@@ -132,6 +256,61 @@ class FeedsScreen extends StatelessWidget {
                         ),
                         fit: BoxFit.cover,
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10.0,
+                    ),
+                    child: Row(
+                      children:
+                      [
+                        Expanded(
+                          child: InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Row(
+                                children:
+                                [
+                                  Icon(
+                                    IconBroken.Heart,
+                                    size: 16.0,
+                                    color: Colors.red,
+                                  ),
+                                  Text(
+                                    '140',
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            onTap: (){},
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children:
+                                [
+                                  Icon(
+                                    IconBroken.Chat,
+                                    size: 16.0,
+                                    color: Colors.purple,
+                                  ),
+                                  Text(
+                                    '160',
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            onTap: (){},
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   ])
