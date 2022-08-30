@@ -27,7 +27,7 @@ void main() async{
   uId = CacheHelper.getData(key: 'uId');
 
 
-  if(uId is SocialLayout)
+  if(uId != null)
   {
     widget = SocialLayout();
   }
