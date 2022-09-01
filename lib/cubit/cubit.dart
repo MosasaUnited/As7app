@@ -2,6 +2,7 @@ import 'package:as7app/cubit/states.dart';
 import 'package:as7app/models/user_model.dart';
 import 'package:as7app/modules/chats/chats_screen.dart';
 import 'package:as7app/modules/feeds/feeds_screen.dart';
+import 'package:as7app/modules/new_post/new_post_screen.dart';
 import 'package:as7app/modules/settings/settings_screen.dart';
 import 'package:as7app/modules/users/users_screen.dart';
 import 'package:as7app/shared/components/constants.dart';
@@ -41,6 +42,7 @@ class SocialCubit extends Cubit<SocialStates>
   List<Widget> screens = [
     FeedsScreen(),
     ChatsScreen(),
+    NewPostScreen(),
     UsersScreen(),
     SettingsScreen(),
   ];
@@ -48,6 +50,7 @@ class SocialCubit extends Cubit<SocialStates>
   List<String> titles = [
     'Home',
     'Chats',
+    'Post',
     'Users',
     'Settings',
   ];
