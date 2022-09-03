@@ -30,6 +30,7 @@ void main() async{
   if(uId != null)
   {
     widget = SocialLayout();
+    print(uId);
   }
   else{
     widget = LoginScreen();

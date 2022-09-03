@@ -53,6 +53,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       phone: phone,
       uId: uId,
       image: 'https://img.freepik.com/free-photo/asian-woman-posing-looking-camera_23-2148255359.jpg?w=826&t=st=1662006717~exp=1662007317~hmac=319931f409bacb182602abf83429f018d38eb9ef7378651fc77e7b426cd113c6',
+      cover: 'https://img.freepik.com/free-photo/group-friends-jumping-top-hill_273609-15304.jpg',
       bio: 'writ your bio ...',
       isEmailVerified: false,
     );
