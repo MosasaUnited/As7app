@@ -1,16 +1,26 @@
+import 'package:as7app/shared/styles/icon_broken.dart';
 import 'package:flutter/material.dart';
 
 class NewPostScreen extends StatelessWidget {
-  const NewPostScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Add Post'
+        leading: IconButton(
+          icon: Icon(
+            IconBroken.Arrow___Left_2,
+          ), onPressed: ()
+            {
+              Navigator.pop(context);
+            },
         ),
+        title: Text(
+          'Add Post',
+        ),
+
       ),
+
     );
   }
 }
