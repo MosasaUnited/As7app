@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:as7app/cubit/cubit.dart';
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/shared/components/components.dart';
 import 'package:as7app/shared/styles/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfileScreen extends StatelessWidget {
 
@@ -17,6 +19,13 @@ class EditProfileScreen extends StatelessWidget {
       builder: (context, state)
       {
         var  userModel = SocialCubit.get(context).userModel;
+
+        var profileImage = SocialCubit.get(context).profileImage;
+
+        var coverImage = SocialCubit.get(context).coverImage;
+
+        nameController.text = userModel?.name as String;
+        bioController.text = userModel?.bio as String;
 
         return Scaffold(
           appBar: AppBar(
@@ -71,15 +80,18 @@ class EditProfileScreen extends StatelessWidget {
                                     topRight: Radius.circular(4.0),
                                   ),
                                   image: DecorationImage(
-                                    image: NetworkImage(
-                                      '${userModel!.cover}',
-                                    ),
+                                    image: (coverImage == null) ? NetworkImage(
+                                      '${userModel?.cover}',
+                                    ) : FileImage(coverImage) as ImageProvider,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                                 IconButton(
-                                    onPressed: (){},
+                                    onPressed: ()
+                                    {
+                                      SocialCubit.get(context).getCoverImage();
+                                    },
                                     icon: CircleAvatar(
                                       radius: 20.0,
                                       child: Icon(
@@ -99,13 +111,16 @@ class EditProfileScreen extends StatelessWidget {
                               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                               child: CircleAvatar(
                                 radius: 60.0,
-                                backgroundImage: NetworkImage(
-                                  '${userModel.image}',
-                                ),
+                                backgroundImage:(profileImage == null) ? NetworkImage(
+                                  '${userModel?.image}',
+                                ) : FileImage(profileImage) as ImageProvider,
                               ),
                             ),
                               IconButton(
-                                onPressed: (){},
+                                onPressed: ()
+                                {
+                                  SocialCubit.get(context).getProfileImage();
+                                },
                                 icon: CircleAvatar(
                                   radius: 20.0,
                                   child: Icon(

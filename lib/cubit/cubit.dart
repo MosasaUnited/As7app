@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/models/user_model.dart';
 import 'package:as7app/modules/chats/chats_screen.dart';
@@ -9,6 +10,7 @@ import 'package:as7app/shared/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SocialCubit extends Cubit<SocialStates>
 {
@@ -17,6 +19,8 @@ class SocialCubit extends Cubit<SocialStates>
   static SocialCubit get(context) => BlocProvider.of(context);
 
   SocialUserModel? userModel;
+
+  var picker = ImagePicker();
 
   void getUserData()
   {
@@ -69,4 +73,40 @@ class SocialCubit extends Cubit<SocialStates>
      }
 
    }
+
+  File? profileImage;
+
+  Future<void> getProfileImage() async
+  {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if(pickedFile != null)
+    {
+      profileImage = File(pickedFile.path);
+      emit(SocialProfileImagePickedSuccessState());
+    }
+    else
+    {
+      print('No Image Selected');
+      emit(SocialProfileImagePickedErrorState());
+    }
+  }
+
+  File? coverImage;
+
+  Future<void> getCoverImage() async
+  {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if(pickedFile != null)
+    {
+      coverImage = File(pickedFile.path);
+      emit(SocialProfileCoverPickedSuccessState());
+    }
+    else
+    {
+      print('No Cover Selected');
+      emit(SocialProfileCoverPickedErrorState());
+    }
+  }
 }
