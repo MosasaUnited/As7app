@@ -26,15 +26,7 @@ void main() async{
 
   uId = CacheHelper.getData(key: 'uId');
 
-
-  if(uId != null)
-  {
-    widget = SocialLayout();
-    print(uId);
-  }
-  else{
-    widget = LoginScreen();
-  }
+  (uId != null) ? widget = SocialLayout() : widget = LoginScreen();
 
   runApp(MyApp(
     startWidget: widget,
@@ -67,7 +59,8 @@ class MyApp extends StatelessWidget {
               theme: lighttheme,
               darkTheme: darktheme,
               themeMode:
-              AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+              // AppCubit.get(context).isDark ? ThemeMode.dark :
+              ThemeMode.light,
               home: SplashScreenView(
                 navigateRoute: startWidget,
                 duration: 5000,
@@ -86,7 +79,7 @@ class MyApp extends StatelessWidget {
                   Colors.yellow,
                   Colors.red,
                 ],
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.yellow,
               ),
             )
     ));

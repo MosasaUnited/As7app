@@ -43,7 +43,10 @@ class EditProfileScreen extends StatelessWidget {
             ),
             actions: [
               TextButton(
-                onPressed: (){},
+                onPressed: ()
+                {
+                  SocialCubit.get(context).uploadProfileImage();
+                },
                 child: Text(
                   'Update',
                 ),

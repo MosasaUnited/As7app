@@ -8,9 +8,11 @@ import 'package:as7app/modules/settings/settings_screen.dart';
 import 'package:as7app/modules/users/users_screen.dart';
 import 'package:as7app/shared/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
 
 class SocialCubit extends Cubit<SocialStates>
 {
@@ -83,6 +85,7 @@ class SocialCubit extends Cubit<SocialStates>
     if(pickedFile != null)
     {
       profileImage = File(pickedFile.path);
+      print(pickedFile.path);
       emit(SocialProfileImagePickedSuccessState());
     }
     else
@@ -108,5 +111,21 @@ class SocialCubit extends Cubit<SocialStates>
       print('No Cover Selected');
       emit(SocialProfileCoverPickedErrorState());
     }
+  }
+
+  void uploadProfileImage()
+  {
+    FirebaseStorage.instance
+        .ref()
+        .child('users/${Uri.file(profileImage!.path).pathSegments.last}')
+        .putFile(profileImage!)
+        .then((value)
+          {
+            value.ref.getDownloadURL().then((value)
+            {
+              print(value);
+            }).catchError((error){});
+          })
+        .catchError((error){});
   }
 }
