@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:as7app/cubit/cubit.dart';
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/shared/components/components.dart';
 import 'package:as7app/shared/styles/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditProfileScreen extends StatelessWidget {
 

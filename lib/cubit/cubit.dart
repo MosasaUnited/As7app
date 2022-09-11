@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/models/user_model.dart';
 import 'package:as7app/modules/chats/chats_screen.dart';
@@ -21,8 +22,6 @@ class SocialCubit extends Cubit<SocialStates>
   static SocialCubit get(context) => BlocProvider.of(context);
 
   SocialUserModel? userModel;
-
-  var picker = ImagePicker();
 
   void getUserData()
   {
@@ -73,10 +72,11 @@ class SocialCubit extends Cubit<SocialStates>
        currentIndex = index;
        emit(SocialChangeBottomNavState());
      }
-
    }
 
   File? profileImage;
+
+  var picker = ImagePicker();
 
   Future<void> getProfileImage() async
   {
@@ -112,11 +112,9 @@ class SocialCubit extends Cubit<SocialStates>
       emit(SocialProfileCoverPickedErrorState());
     }
   }
-
   void uploadProfileImage()
   {
-    FirebaseStorage.instance
-        .ref()
+    FirebaseStorage.instance.ref()
         .child('users/${Uri.file(profileImage!.path).pathSegments.last}')
         .putFile(profileImage!)
         .then((value)
@@ -128,4 +126,12 @@ class SocialCubit extends Cubit<SocialStates>
           })
         .catchError((error){});
   }
+  // if this isn't working for you just try to change Storage Rules on FirebaseStorage to this (rules_version = '2';
+// service firebase.storage {
+//   match /b/{bucket}/o {
+//     match /{allPaths=**} {
+//       allow read, write: if true;
+//     }
+//   }
+// })
 }
