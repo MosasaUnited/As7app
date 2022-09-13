@@ -112,6 +112,9 @@ class SocialCubit extends Cubit<SocialStates>
       emit(SocialProfileCoverPickedErrorState());
     }
   }
+
+  String? profileImageUrl = '';
+
   void uploadProfileImage()
   {
     FirebaseStorage.instance.ref()
@@ -121,10 +124,100 @@ class SocialCubit extends Cubit<SocialStates>
           {
             value.ref.getDownloadURL().then((value)
             {
+              emit(SocialUploadProfileSuccessState());
+              profileImageUrl = value;
               print(value);
-            }).catchError((error){});
+            }).catchError((error)
+            {
+              emit(SocialUploadProfileErrorState());
+            });
           })
-        .catchError((error){});
+        .catchError((error)
+        {
+          emit(SocialUploadProfileErrorState());
+        });
+  }
+
+  String? coverImageUrl = '';
+
+  void uploadCoverImage()
+  {
+    FirebaseStorage.instance.ref()
+        .child('users/${Uri.file(coverImage!.path).pathSegments.last}')
+        .putFile(coverImage!)
+        .then((value)
+    {
+      value.ref.getDownloadURL().then((value)
+      {
+        emit(SocialUploadCoverSuccessState());
+        coverImageUrl = value;
+        print(value);
+      }).catchError((error)
+      {
+        emit(SocialUploadCoverErrorState());
+      });
+    })
+        .catchError((error)
+    {
+      emit(SocialUploadCoverErrorState());
+    });
+  }
+
+  void updateUser({
+  required String name,
+  required String phone,
+  required String bio,
+})
+  {
+    if(coverImage != null)
+    {
+      uploadCoverImage();
+    }else if(profileImage != null)
+    {
+      uploadProfileImage();
+    }else if(coverImage != null && profileImage != null)
+    {
+
+    }else
+    {
+      updateUserData(
+        name: name,
+        phone: phone,
+        bio: bio,
+      );
+    }
+
+  }
+
+  void updateUserData({
+    required String name,
+    required String phone,
+    required String bio,
+  })
+  {
+    SocialUserModel model = SocialUserModel(
+      name: name,
+      phone: phone,
+      uId: userModel!.uId,
+      email: userModel!.email,
+      cover: userModel!.cover,
+      image: userModel!.image,
+      bio: bio,
+      isEmailVerified: false,
+    );
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .update(model.toMap())
+        .then((value)
+    {
+      getUserData();
+    })
+        .catchError((error)
+    {
+      emit(SocialUserUpdateErrorState());
+    });
   }
   // if this isn't working for you just try to change Storage Rules on FirebaseStorage to this (rules_version = '2';
 // service firebase.storage {

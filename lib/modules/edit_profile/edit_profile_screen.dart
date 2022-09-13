@@ -9,6 +9,7 @@ class EditProfileScreen extends StatelessWidget {
 
   var nameController = TextEditingController();
   var bioController = TextEditingController();
+  var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class EditProfileScreen extends StatelessWidget {
 
         nameController.text = userModel?.name as String;
         bioController.text = userModel?.bio as String;
+        phoneController.text = userModel?.phone as String;
 
         return Scaffold(
           appBar: AppBar(
@@ -43,7 +45,8 @@ class EditProfileScreen extends StatelessWidget {
               TextButton(
                 onPressed: ()
                 {
-                  SocialCubit.get(context).uploadProfileImage();
+                  SocialCubit.get(context).updateUser(name: nameController.text,
+                      phone: phoneController.text, bio: bioController.text);
                 },
                 child: Text(
                   'Update',
@@ -68,7 +71,10 @@ class EditProfileScreen extends StatelessWidget {
                         alignment: AlignmentDirectional.bottomCenter,
                         children:
                         [
+                          if(state is SocialUserUpdateLoadingState)
+                            LinearProgressIndicator(),
                           Align(
+
                             child: Stack(
                               alignment: AlignmentDirectional.topEnd,
                               children:[
@@ -165,7 +171,23 @@ class EditProfileScreen extends StatelessWidget {
                     },
                     label: 'Bio',
                     prefix: IconBroken.Bookmark,
-                  )
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  defaultFormField(
+                    controller: phoneController,
+                    type: TextInputType.phone,
+                    validate: (String? value)
+                    {
+                      if(value!.isEmpty)
+                      {
+                        return 'Phone No. Must to be Add';
+                      }
+                    },
+                    label: 'Phone',
+                    prefix: IconBroken.Call,
+                  ),
               ],
               ),
             ),
