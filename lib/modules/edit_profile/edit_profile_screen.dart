@@ -45,7 +45,7 @@ class EditProfileScreen extends StatelessWidget {
               TextButton(
                 onPressed: ()
                 {
-                  SocialCubit.get(context).updateUser(name: nameController.text,
+                  SocialCubit.get(context).updateUserData(name: nameController.text,
                       phone: phoneController.text, bio: bioController.text);
                 },
                 child: Text(
@@ -71,10 +71,9 @@ class EditProfileScreen extends StatelessWidget {
                         alignment: AlignmentDirectional.bottomCenter,
                         children:
                         [
-                          if(state is SocialUserUpdateLoadingState)
-                            LinearProgressIndicator(),
+                          // if(state is SocialUserUpdateLoadingState)
+                          //   LinearProgressIndicator(),
                           Align(
-
                             child: Stack(
                               alignment: AlignmentDirectional.topEnd,
                               children:[
@@ -139,8 +138,66 @@ class EditProfileScreen extends StatelessWidget {
                         ]),
                   ),
                   SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
+                  if(SocialCubit.get(context).profileImage != null || SocialCubit.get(context).coverImage != null)
+                  Row(
+                    children:
+                    [
+                      if(SocialCubit.get(context).profileImage != null)
+                        Expanded(
+                        child: Column(
+                          children: [
+                            defaultButton(function: ()
+                            {
+                              SocialCubit.get(context).uploadProfileImage(
+                                  name: nameController.text,
+                                  phone: phoneController.text,
+                                  bio: bioController.text,);
+                            },
+                                text: 'upload profile',),
+                            if(state is SocialUserUpdateLoadingState)
+                              SizedBox(
+                              height: 5.0,
+                            ),
+                            if(state is SocialUserUpdateLoadingState)
+                              LinearProgressIndicator(),
+                          ],
+                        )
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      if(SocialCubit.get(context).coverImage != null)
+                        Expanded(
+                        child: Column(
+                          children: [
+                            defaultButton(function: ()
+                            {
+                              SocialCubit.get(context).uploadCoverImage(
+                                name: nameController.text,
+                                phone: phoneController.text,
+                                bio: bioController.text,);
+                            },
+                                text: 'upload cover',),
+                            if(state is SocialUserUpdateLoadingState)
+                              SizedBox(
+                              height: 5.0,
+                            ),
+                            if(state is SocialUserUpdateLoadingState)
+                              LinearProgressIndicator(),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(
+                    height: 13.0,
+                  ),
 
                   defaultFormField(
                   controller: nameController,
