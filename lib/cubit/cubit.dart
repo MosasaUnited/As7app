@@ -104,12 +104,12 @@ class SocialCubit extends Cubit<SocialStates>
     if(pickedFile != null)
     {
       coverImage = File(pickedFile.path);
-      emit(SocialProfileCoverPickedSuccessState());
+      emit(SocialCoverPickedSuccessState());
     }
     else
     {
       print('No Cover Selected');
-      emit(SocialProfileCoverPickedErrorState());
+      emit(SocialCoverPickedErrorState());
     }
   }
 
@@ -247,4 +247,55 @@ class SocialCubit extends Cubit<SocialStates>
 //     }
 //   }
 // })
+
+
+
+  File? postImage;
+
+  Future<void> getPostImage() async
+  {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if(pickedFile != null)
+    {
+      postImage = File(pickedFile.path);
+      emit(SocialCoverPickedSuccessState());
+    }
+    else
+    {
+      print('No Image Selected');
+      emit(SocialCoverPickedErrorState());
+    }
+  }
+
+  void creatNewPost({
+    required String name,
+    required String uId,
+    required String image,
+    required String dateTime,
+    required String text,
+  })
+  {
+    emit(SocialCreatPostLoadingState());
+    FirebaseStorage.instance.ref()
+        .child('posts/${Uri.file(postImage!.path).pathSegments.last}')
+        .putFile(postImage!)
+        .then((value)
+    {
+      value.ref.getDownloadURL().then((value)
+      {
+        //emit(SocialUploadCoverSuccessState());
+        print(value);
+      }).catchError((error)
+      {
+        emit(SocialCreatPostErrorState());
+      });
+    })
+        .catchError((error)
+    {
+      emit(SocialCreatPostErrorState());
+    });
+  }
+
+
 }
