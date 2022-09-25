@@ -25,7 +25,7 @@ class SocialUserModel
   {
     email = json?['email'];
     name = json?['name'];
-    phone = json?['email'];
+    phone = json?['phone'];
     uId = json?['uId'];
     image = json?['image'];
     cover = json?['cover'];

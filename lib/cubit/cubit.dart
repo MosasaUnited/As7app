@@ -14,6 +14,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../models/post_model.dart';
+
 
 class SocialCubit extends Cubit<SocialStates>
 {
@@ -268,10 +270,13 @@ class SocialCubit extends Cubit<SocialStates>
     }
   }
 
-  void creatNewPost({
-    required String name,
-    required String uId,
-    required String image,
+  void removePostImage()
+  {
+    postImage = null;
+    emit(SocialRemovePostImageState());
+  }
+
+  void uploadPostImage({
     required String dateTime,
     required String text,
   })
@@ -286,10 +291,45 @@ class SocialCubit extends Cubit<SocialStates>
       {
         //emit(SocialUploadCoverSuccessState());
         print(value);
+        creatPost(
+            dateTime: dateTime,
+            text: text,
+            postImage: value,
+        );
       }).catchError((error)
       {
         emit(SocialCreatPostErrorState());
       });
+    })
+        .catchError((error)
+    {
+      emit(SocialCreatPostErrorState());
+    });
+  }
+
+  void creatPost({
+    required String dateTime,
+    required String text,
+    String? postImage,
+  })
+  {
+    emit(SocialCreatPostLoadingState());
+
+    PostModel model = PostModel(
+      name: userModel!.name,
+      uId: userModel!.uId,
+      image: userModel!.image,
+      dateTime: dateTime,
+      text: text,
+      postImage: postImage??'',
+    );
+
+    FirebaseFirestore.instance
+        .collection('posts')
+        .add(model.toMap())
+        .then((value)
+    {
+      emit(SocialCreatPostSuccessState());
     })
         .catchError((error)
     {

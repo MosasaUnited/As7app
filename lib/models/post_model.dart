@@ -32,6 +32,9 @@ class PostModel
       'name' : name,
       'uId' : uId,
       'image' :image,
+      'dateTime' : dateTime,
+      'text' : text,
+      'postImage' : postImage,
     };
   }
 }
