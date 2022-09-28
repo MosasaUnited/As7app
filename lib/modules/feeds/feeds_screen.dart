@@ -272,18 +272,15 @@ class FeedsScreen extends StatelessWidget {
               //     ),
               //   ),
               // ),
-              if(model.postImage != null)
-                Padding(
-                padding: const EdgeInsetsDirectional.only(
-                  top: 15.0
-                ),
-                child: Container(
+               if(model.postImage != '')
+                Container(
                   height: 140.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                       5.0,
                     ),
+
                     image: DecorationImage(
                       image: NetworkImage(
                         '${model.postImage}',
@@ -292,7 +289,6 @@ class FeedsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: 5.0),
