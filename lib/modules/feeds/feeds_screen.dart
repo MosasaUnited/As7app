@@ -44,7 +44,7 @@ class FeedsScreen extends StatelessWidget {
                 ),
               ),
               ListView.separated(
-                itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context),
+                itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context,index),
                 itemCount: SocialCubit.get(context).posts.length,
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => SizedBox(
@@ -64,7 +64,7 @@ class FeedsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPostItem(PostModel model, context) => Card(
+  Widget buildPostItem(PostModel model, context, index) => Card(
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 5.0,
     margin: EdgeInsets.symmetric(
@@ -308,7 +308,7 @@ class FeedsScreen extends StatelessWidget {
                                 color: Colors.red,
                               ),
                               Text(
-                                '0',
+                                '${SocialCubit.get(context).likes[index]}',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
@@ -397,7 +397,10 @@ class FeedsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onTap: (){},
+                      onTap: ()
+                      {
+                        SocialCubit.get(context).likePosts(SocialCubit.get(context).postsId[index]);
+                      },
                     ),
                   ],
                 ),

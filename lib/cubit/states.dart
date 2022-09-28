@@ -13,6 +13,8 @@ class SocialGetUserErrorState extends SocialStates
   SocialGetUserErrorState(this.error);
 }
 
+// to Get Posts to Feed Screen
+
 class SocialGetPostsSuccessState extends SocialStates {}
 
 class SocialGetPostsLoadingState extends SocialStates {}
@@ -22,6 +24,17 @@ class SocialGetPostsErrorState extends SocialStates
   final String error;
 
   SocialGetPostsErrorState(this.error);
+}
+
+// to get Like button
+
+class SocialLikePostsSuccessState extends SocialStates {}
+
+class SocialLikePostsErrorState extends SocialStates
+{
+  final String error;
+
+  SocialLikePostsErrorState(this.error);
 }
 
 class SocialChangeBottomNavState extends SocialStates {}
