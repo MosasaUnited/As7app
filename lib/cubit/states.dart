@@ -37,6 +37,20 @@ class SocialLikePostsErrorState extends SocialStates
   SocialLikePostsErrorState(this.error);
 }
 
+// to get Comment Button
+
+class SocialCommentPostSuccessState extends SocialStates {}
+
+class SocialCommentPostLoadingState extends SocialStates {}
+
+class SocialCommentPostErrorState extends SocialStates
+{
+  final String error;
+
+  SocialCommentPostErrorState(this.error);
+
+}
+
 class SocialChangeBottomNavState extends SocialStates {}
 
 class SocialNewPostState extends SocialStates {}

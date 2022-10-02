@@ -5,7 +5,6 @@ import 'package:as7app/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../shared/styles/icon_broken.dart';
 
 class FeedsScreen extends StatelessWidget {
@@ -331,7 +330,7 @@ class FeedsScreen extends StatelessWidget {
                                 color: Colors.purple,
                               ),
                               Text(
-                                '0',
+                                '${SocialCubit.get(context).comments[index]}',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
@@ -374,12 +373,13 @@ class FeedsScreen extends StatelessWidget {
                               'Write a Comment.....',
                               style: Theme.of(context).textTheme.caption!.copyWith(
                                 height: 1.3,
-                              ),
-
                             ),
-                          ],
+                            )],
                         ),
-                        onTap: (){},
+                        onTap: ()
+                        {
+                          SocialCubit.get(context).commentPost(SocialCubit.get(context).postsId[index]);
+                        },
                       ),
                     ),
                     InkWell(
