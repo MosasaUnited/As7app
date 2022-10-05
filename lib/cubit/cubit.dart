@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../models/comment_model.dart';
 import '../models/post_model.dart';
 
 
@@ -340,7 +341,6 @@ class SocialCubit extends Cubit<SocialStates>
   List<PostModel> posts = [];
   List<String> postsId = [];
   List<int> likes = [];
-  List<int> comments = [];
 
   void getPosts()
   {
@@ -361,21 +361,21 @@ class SocialCubit extends Cubit<SocialStates>
           postsId.add(element.id);
           posts.add(PostModel.fromJson(element.data()));
         }).catchError((error){});
-      };
+      }
 
-      for (var element in value.docs) {
-        element.
-        reference.
-        collection('comment').
-        get().
-        then((value)
-        {
-          comments.add(value.docs.length);
-          postsId.add(element.id);
-          posts.add(PostModel.fromJson(element.data()));
-        }).catchError((error){});
-
-      };
+      // for (var element in value.docs) {
+      //   element.
+      //   reference.
+      //   collection('comment').
+      //   get().
+      //   then((value)
+      //   {
+      //     comments.add(value.docs.length);
+      //     postsId.add(element.id);
+      //     posts.add(PostModel.fromJson(element.data()));
+      //   }).catchError((error){});
+      //
+      // }
 
       emit(SocialGetPostsSuccessState());
     }).catchError((error)
@@ -403,26 +403,52 @@ class SocialCubit extends Cubit<SocialStates>
     });
   }
 
+  SocialCommentModel? commentModel;
 
-  void commentPost(String postId)
-  {
-    FirebaseFirestore.
-    instance.
-    collection('posts').
-    doc(postId).
-    collection('comment').
-    doc(userModel!.uId).
-    set(
-        {
-          'comment' : true,
-        }).
-    then((value)
-    {
-      emit(SocialCommentPostSuccessState());
-    }).
-    catchError((error)
-    {
-      emit(SocialCommentPostErrorState(error.toString()));
+  void writeComment({
+    required String postId,
+    required String dateTime,
+    required String text,
+  }) {
+    commentModel = SocialCommentModel(
+      name: userModel!.name,
+      uId: userModel!.uId,
+      image: userModel!.image,
+      dateTime: dateTime,
+      text: text,
+    );
+
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .add(commentModel!.toMap())
+        .then((value) {
+      emit(SocialWriteCommentSuccessState());
+    }).catchError((error) {
+      emit(SocialWriteCommentErrorState((error).toString()));
+    });
+  }
+
+  List<SocialCommentModel> comments = [];
+
+  // List<int> commentsNumber = [];
+
+  void getComments({
+    required String postId,
+  }) {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event) {
+            comments = [];
+            event.docs.forEach((element) {
+              comments.add(SocialCommentModel.fromJson(element.data()));
+      });
+      emit(SocialGetCommentsSuccessState());
     });
   }
 

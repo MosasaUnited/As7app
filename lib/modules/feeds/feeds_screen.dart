@@ -1,6 +1,8 @@
 import 'package:as7app/cubit/cubit.dart';
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/models/post_model.dart';
+import 'package:as7app/modules/comments/comments_page.dart';
+import 'package:as7app/shared/components/components.dart';
 import 'package:as7app/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,7 @@ class FeedsScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state){},
       builder: (context, state) => ConditionalBuilder(
-        condition: SocialCubit.get(context).posts.length > 0,
+        condition: SocialCubit.get(context).posts.isNotEmpty,
         builder: (context) => SingleChildScrollView(
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
@@ -43,21 +45,20 @@ class FeedsScreen extends StatelessWidget {
                 ),
               ),
               ListView.separated(
-                itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context,index),
-                itemCount: SocialCubit.get(context).posts.length,
+                itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index], context, index),
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => SizedBox(
                   height: 8.0,
                 ),
                 physics: NeverScrollableScrollPhysics(),
+                itemCount: SocialCubit.get(context).posts.length,
               ),
               SizedBox(
                 height: 8.0,
               )
             ],
           ),
-        ),
-        fallback: (context) => Center(child: CircularProgressIndicator()),
+        ), fallback: (BuildContext context) => Center(child: CircularProgressIndicator()),
 
       )
     );
@@ -138,139 +139,6 @@ class FeedsScreen extends StatelessWidget {
                   fontStyle: FontStyle.italic,
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(
-              //     vertical: 10.0,
-              //   ),
-              //   child: Container(
-              //     width: double.infinity,
-              //     child: Wrap(
-              //       children:
-              //       [
-              //         Padding(
-              //           padding: const EdgeInsetsDirectional.only(
-              //             end: 6.0,
-              //           ),
-              //           child: Container(
-              //             height: 20.0,
-              //             child: MaterialButton(
-              //               onPressed: (){},
-              //               height: 25.0,
-              //               minWidth: 1.0,
-              //               padding: EdgeInsets.zero,
-              //               child: Text(
-              //                 '#software',
-              //                 style: Theme.of(context).textTheme.caption!.copyWith(
-              //                   color: defaultColor,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsetsDirectional.only(
-              //             end: 6.0,
-              //           ),
-              //           child: Container(
-              //             height: 20.0,
-              //             child: MaterialButton(
-              //               onPressed: (){},
-              //               height: 25.0,
-              //               minWidth: 1.0,
-              //               padding: EdgeInsets.zero,
-              //               child: Text(
-              //                 '#devleoper ',
-              //                 style: Theme.of(context).textTheme.caption!.copyWith(
-              //                   color: defaultColor,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsetsDirectional.only(
-              //             end: 6.0,
-              //           ),
-              //           child: Container(
-              //             height: 20.0,
-              //             child: MaterialButton(
-              //               onPressed: (){},
-              //               height: 25.0,
-              //               minWidth: 1.0,
-              //               padding: EdgeInsets.zero,
-              //               child: Text(
-              //                 '#engineer',
-              //                 style: Theme.of(context).textTheme.caption!.copyWith(
-              //                   color: defaultColor,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsetsDirectional.only(
-              //             end: 6.0,
-              //           ),
-              //           child: Container(
-              //             height: 20.0,
-              //             child: MaterialButton(
-              //               onPressed: (){},
-              //               height: 25.0,
-              //               minWidth: 1.0,
-              //               padding: EdgeInsets.zero,
-              //               child: Text(
-              //                 '#motivation',
-              //                 style: Theme.of(context).textTheme.caption!.copyWith(
-              //                   color: defaultColor,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsetsDirectional.only(
-              //             end: 6.0,
-              //           ),
-              //           child: Container(
-              //             height: 20.0,
-              //             child: MaterialButton(
-              //               onPressed: (){},
-              //               height: 25.0,
-              //               minWidth: 1.0,
-              //               padding: EdgeInsets.zero,
-              //               child: Text(
-              //                 '#flutter',
-              //                 style: Theme.of(context).textTheme.caption!.copyWith(
-              //                   color: defaultColor,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsetsDirectional.only(
-              //             end: 6.0,
-              //           ),
-              //           child: Container(
-              //             height: 20.0,
-              //             child: MaterialButton(
-              //               onPressed: (){},
-              //               height: 25.0,
-              //               minWidth: 1.0,
-              //               padding: EdgeInsets.zero,
-              //               child: Text(
-              //                 '#let\'sdoit',
-              //                 style: Theme.of(context).textTheme.caption!.copyWith(
-              //                   color: defaultColor,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
                if(model.postImage != '')
                 Container(
                   height: 140.0,
@@ -330,7 +198,7 @@ class FeedsScreen extends StatelessWidget {
                                 color: Colors.purple,
                               ),
                               Text(
-                                '${SocialCubit.get(context).comments[index]}',
+                                '${SocialCubit.get(context).likes[index]} Comments',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
@@ -378,7 +246,7 @@ class FeedsScreen extends StatelessWidget {
                         ),
                         onTap: ()
                         {
-                          SocialCubit.get(context).commentPost(SocialCubit.get(context).postsId[index]);
+                          navigateTo(context, CommentsScreen(postId: SocialCubit.get(context).postsId[index],));
                         },
                       ),
                     ),

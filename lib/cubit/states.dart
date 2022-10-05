@@ -39,15 +39,15 @@ class SocialLikePostsErrorState extends SocialStates
 
 // to get Comment Button
 
-class SocialCommentPostSuccessState extends SocialStates {}
+class SocialWriteCommentSuccessState extends SocialStates {}
 
-class SocialCommentPostLoadingState extends SocialStates {}
+class SocialWriteCommentLoadingState extends SocialStates {}
 
-class SocialCommentPostErrorState extends SocialStates
+class SocialWriteCommentErrorState extends SocialStates
 {
   final String error;
 
-  SocialCommentPostErrorState(this.error);
+  SocialWriteCommentErrorState(this.error);
 
 }
 
@@ -100,3 +100,11 @@ class SocialPostImagePickedSuccessState extends SocialStates{}
 class SocialPostImagePickedErrorState extends SocialStates{}
 
 class SocialRemovePostImageState extends SocialStates{}
+
+// Get Comments
+
+class SocialGetCommentsSuccessState extends SocialStates{}
+
+class SocialGetCommentsLoadingState extends SocialStates{}
+
+class SocialGetCommentsErrorState extends SocialStates{}
