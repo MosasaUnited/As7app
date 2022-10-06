@@ -37,15 +37,6 @@ class CommentsScreen extends StatelessWidget {
                 title: Text(
                   'Comment',
                 ),
-                actions:
-                [
-                  TextButton(
-                    onPressed: (){},
-                    child: Text(
-                      'Upload Comment',
-                    ),
-                  )
-                ],
 
               ),
               body: Padding(

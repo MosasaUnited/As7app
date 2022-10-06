@@ -1,7 +1,7 @@
 import 'package:as7app/cubit/cubit.dart';
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/models/post_model.dart';
-import 'package:as7app/modules/comments/comments_page.dart';
+import 'package:as7app/modules/comments/comments_screen.dart';
 import 'package:as7app/shared/components/components.dart';
 import 'package:as7app/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -79,7 +79,7 @@ class FeedsScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 15.0,
                     backgroundImage: NetworkImage(
-                      '${model.image}',
+                      '${SocialCubit.get(context).userModel!.image}',
                     ),
                   ),
                   SizedBox(
@@ -92,7 +92,7 @@ class FeedsScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '${model.name}',
+                              '${SocialCubit.get(context).userModel!.name}',
                               style: TextStyle(
                                 height: 1.3,
                               ),

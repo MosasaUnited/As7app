@@ -362,21 +362,6 @@ class SocialCubit extends Cubit<SocialStates>
           posts.add(PostModel.fromJson(element.data()));
         }).catchError((error){});
       }
-
-      // for (var element in value.docs) {
-      //   element.
-      //   reference.
-      //   collection('comment').
-      //   get().
-      //   then((value)
-      //   {
-      //     comments.add(value.docs.length);
-      //     postsId.add(element.id);
-      //     posts.add(PostModel.fromJson(element.data()));
-      //   }).catchError((error){});
-      //
-      // }
-
       emit(SocialGetPostsSuccessState());
     }).catchError((error)
     {
@@ -445,9 +430,9 @@ class SocialCubit extends Cubit<SocialStates>
         .snapshots()
         .listen((event) {
             comments = [];
-            event.docs.forEach((element) {
+            for (var element in event.docs) {
               comments.add(SocialCommentModel.fromJson(element.data()));
-      });
+      }
       emit(SocialGetCommentsSuccessState());
     });
   }

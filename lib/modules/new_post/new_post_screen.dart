@@ -67,7 +67,7 @@ class NewPostScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 18.0,
                     backgroundImage: NetworkImage(
-                      'https://img.freepik.com/free-photo/pretty-glad-brunette-asian-woman-stands-half-turned-against-pink-wall-has-good-mood-wears-stylish-jacket-with-hood-thinks-about-something-pleasant-poses-happy-indoor-emotions-concept_273609-49492.jpg?w=1380&t=st=1660793864~exp=1660794464~hmac=a76308a68e849637c76eaa0d2fd7c5ea81c36ceb6d6c0bee146c0f72b488237e',
+                      '${SocialCubit.get(context).userModel!.image}',
                     ),
                   ),
                   SizedBox(
@@ -80,7 +80,7 @@ class NewPostScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Mostafa Saad',
+                              '${SocialCubit.get(context).userModel!.name}',
                               style: TextStyle(
                                 height: 1.3,
                               ),
