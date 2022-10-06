@@ -198,7 +198,7 @@ class FeedsScreen extends StatelessWidget {
                                 color: Colors.purple,
                               ),
                               Text(
-                                '${SocialCubit.get(context).likes[index]} Comments',
+                                '${SocialCubit.get(context).comments.length} Comments',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],

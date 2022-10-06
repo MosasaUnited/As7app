@@ -49,8 +49,7 @@ class CommentsScreen extends StatelessWidget {
                         child: ListView.separated(
                           physics: BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return _buildCommentItem(context,
-                                SocialCubit.get(context).comments[index]);
+                            return _buildCommentItem(context, SocialCubit.get(context).comments[index]);
                           },
                           separatorBuilder: (context, index) =>
                               SizedBox(
@@ -73,7 +72,7 @@ class CommentsScreen extends StatelessWidget {
                           ),
 
                     ),
-                    _buildWriteCommentRow(context)
+                    _buildWriteCommentRow(context),
                   ],
                 ),
               ),
