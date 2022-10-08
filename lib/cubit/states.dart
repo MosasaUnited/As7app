@@ -2,6 +2,8 @@ abstract class SocialStates {}
 
 class SocialInitialState extends SocialStates {}
 
+//to Get UserProfile
+
 class SocialGetUserSuccessState extends SocialStates {}
 
 class SocialGetUserLoadingState extends SocialStates {}
@@ -11,6 +13,19 @@ class SocialGetUserErrorState extends SocialStates
   final String error;
 
   SocialGetUserErrorState(this.error);
+}
+
+// to Get All Users
+
+class SocialGetAllUsersSuccessState extends SocialStates {}
+
+class SocialGetAllUsersLoadingState extends SocialStates {}
+
+class SocialGetAllUsersErrorState extends SocialStates
+{
+  final String error;
+
+  SocialGetAllUsersErrorState(this.error);
 }
 
 // to Get Posts to Feed Screen
