@@ -198,13 +198,16 @@ class FeedsScreen extends StatelessWidget {
                                 color: Colors.purple,
                               ),
                               Text(
-                                '${SocialCubit.get(context).comments.length} Comments',
+                                'Comments',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
                           ),
                         ),
-                        onTap: (){},
+                        onTap: ()
+                        {
+                          navigateTo(context, CommentsScreen(postId: SocialCubit.get(context).postsId[index],));
+                        },
                       ),
                     ),
                   ],
