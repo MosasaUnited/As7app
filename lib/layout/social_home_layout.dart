@@ -1,5 +1,6 @@
 import 'package:as7app/cubit/cubit.dart';
 import 'package:as7app/cubit/states.dart';
+import 'package:as7app/modules/loginScreen/login_screen.dart';
 import 'package:as7app/modules/new_post/new_post_screen.dart';
 import 'package:as7app/shared/components/components.dart';
 import 'package:as7app/shared/styles/icon_broken.dart';
@@ -29,6 +30,15 @@ class SocialLayout extends StatelessWidget {
             cubit.titles[cubit.currentIndex],
           ),
             actions: [
+              IconButton(
+                  onPressed: ()
+                  {
+                    FirebaseAuth.instance.signOut();
+                    navigateTo(context, LoginScreen());
+                  },
+                  icon: Icon(
+                    IconBroken.Logout,
+                  )),
               IconButton(
                   onPressed: (){},
                   icon: Icon(
