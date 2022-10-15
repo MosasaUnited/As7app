@@ -1,5 +1,6 @@
 import 'package:as7app/cubit/states.dart';
 import 'package:as7app/models/user_model.dart';
+import 'package:as7app/modules/chat_details/chat_details_screen.dart';
 import 'package:as7app/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import '../../cubit/cubit.dart';
 import '../../shared/styles/colors.dart';
 
 class ChatsScreen extends StatelessWidget {
-  const ChatsScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context)
@@ -19,7 +20,7 @@ class ChatsScreen extends StatelessWidget {
         condition: SocialCubit.get(context).users.length > 0,
         builder: (context) => ListView.separated(
           physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) => buildChatItem(SocialCubit.get(context).users[index]),
+          itemBuilder: (context, index) => buildChatItem(SocialCubit.get(context).users[index], context),
           separatorBuilder: (context, index) => myDivider(),
           itemCount: SocialCubit.get(context).users.length,
         ),
@@ -28,7 +29,14 @@ class ChatsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildChatItem(SocialUserModel model) => InkWell(
+  Widget buildChatItem(SocialUserModel model, context) => InkWell(
+    onTap: ()
+    {
+      navigateTo(context, ChatDetailsScreen
+        (
+        userModel: model,
+      ));
+    },
     child: Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
@@ -56,6 +64,5 @@ class ChatsScreen extends StatelessWidget {
         ],
       ),
     ),
-    onTap: (){},
   );
 }

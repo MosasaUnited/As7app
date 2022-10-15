@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:as7app/cubit/states.dart';
+import 'package:as7app/models/message_model.dart';
 import 'package:as7app/models/user_model.dart';
 import 'package:as7app/modules/chats/chats_screen.dart';
 import 'package:as7app/modules/feeds/feeds_screen.dart';
@@ -65,6 +66,10 @@ class SocialCubit extends Cubit<SocialStates>
 
    void changeBottomNav(int index)
    {
+     if(index == 1)
+     {
+       getUsers();
+     }
 
      if(index == 2)
      {
@@ -441,19 +446,67 @@ class SocialCubit extends Cubit<SocialStates>
 
   void getUsers()
   {
-    FirebaseFirestore.
-    instance.
+    if(users.isEmpty)
+    {
+      FirebaseFirestore.
+      instance.
+      collection('users').
+      get().
+      then((value)
+      {
+        for (var element in value.docs) {
+          if(element.data()['uId'] != userModel!.uId)
+          {
+            users.add(SocialUserModel.fromJson(element.data()));
+          }
+        }
+        emit(SocialGetPostsSuccessState());
+      }).catchError((error)
+      {
+        emit(SocialGetPostsErrorState(error.toString()));
+      });
+    }
+  }
+
+  void sendMessage({
+  required String receiverId,
+  required String dateTime,
+  required String text,
+})
+  {
+    MessageModel model = MessageModel(
+      text: text,
+      senderId: userModel!.uId,
+      receiverId: receiverId,
+      dateTime: dateTime,
+    );
+// set my chats
+    FirebaseFirestore.instance.
     collection('users').
-    get().
+    doc(userModel!.uId).
+    collection('chats').
+    doc(receiverId).
+    collection('messages').
+    add(model.toMap()).
     then((value)
     {
-      for (var element in value.docs) {
-        users.add(SocialUserModel.fromJson(element.data()));
-      }
-      emit(SocialGetPostsSuccessState());
-    }).catchError((error)
+      emit(SocialSendMessageSuccessState());
+    }).catchError((error){
+      emit(SocialSendMessageErrorState());
+    });
+// set received chats
+    FirebaseFirestore.instance.
+    collection('users').
+    doc(receiverId).
+    collection('chats').
+    doc(userModel!.uId).
+    collection('messages').
+    add(model.toMap()).
+    then((value)
     {
-      emit(SocialGetPostsErrorState(error.toString()));
+      emit(SocialSendMessageSuccessState());
+    }).catchError((error){
+      emit(SocialSendMessageErrorState());
     });
   }
 }

@@ -123,3 +123,13 @@ class SocialGetCommentsSuccessState extends SocialStates{}
 class SocialGetCommentsLoadingState extends SocialStates{}
 
 class SocialGetCommentsErrorState extends SocialStates{}
+
+// Messages
+
+class SocialSendMessageSuccessState extends SocialStates {}
+
+class SocialSendMessageErrorState extends SocialStates {}
+
+class SocialGetMessageSuccessState extends SocialStates {}
+
+class SocialGetMessageErrorState extends SocialStates {}
