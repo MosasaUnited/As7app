@@ -131,5 +131,3 @@ class SocialSendMessageSuccessState extends SocialStates {}
 class SocialSendMessageErrorState extends SocialStates {}
 
 class SocialGetMessageSuccessState extends SocialStates {}
-
-class SocialGetMessageErrorState extends SocialStates {}

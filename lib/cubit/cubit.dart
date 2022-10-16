@@ -10,6 +10,7 @@ import 'package:as7app/modules/settings/settings_screen.dart';
 import 'package:as7app/modules/users/users_screen.dart';
 import 'package:as7app/shared/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -507,6 +508,34 @@ class SocialCubit extends Cubit<SocialStates>
       emit(SocialSendMessageSuccessState());
     }).catchError((error){
       emit(SocialSendMessageErrorState());
+    });
+  }
+
+  List<MessageModel> messages = [];
+
+  void getMessages({
+  required String receiverId,
+})
+  {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event) 
+    {
+
+      messages = [];
+
+      for (var element in event.docs)
+      {
+        messages.add(MessageModel.fromJson(element.data()));
+      }
+
+      emit(SocialGetMessageSuccessState());
     });
   }
 }
