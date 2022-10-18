@@ -105,23 +105,43 @@ class ChatDetailsScreen extends StatelessWidget
                             ),
                             Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: IconButton(
-                                onPressed: ()
-                                {
-                                  SocialCubit.get(context).sendMessage(
-                                    receiverId: userModel!.uId!,
-                                    dateTime: DateTime.now().toString(),
-                                    text: messageController.text,
-                                  );
-                                },
-                                icon: Transform.translate(
-                                  offset: const Offset(10, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: Colors.blue,
-                                    size: 30,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: ()
+                                    {
+                                    },
+                                    icon: Transform.translate(
+                                      offset: const Offset(10, 0),
+                                      child: Icon(
+                                        Icons.broken_image,
+                                        color: Colors.blue,
+                                        size: 25,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  SizedBox(
+                                    width: 0.0,
+                                  ),
+                                  IconButton(
+                                    onPressed: ()
+                                    {
+                                      SocialCubit.get(context).sendMessage(
+                                        receiverId: userModel!.uId!,
+                                        dateTime: DateTime.now().toString(),
+                                        text: messageController.text,
+                                      );
+                                    },
+                                    icon: Transform.translate(
+                                      offset: const Offset(10, 0),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.blue,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

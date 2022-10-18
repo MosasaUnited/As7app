@@ -10,7 +10,6 @@ import 'package:as7app/modules/settings/settings_screen.dart';
 import 'package:as7app/modules/users/users_screen.dart';
 import 'package:as7app/shared/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -314,6 +313,8 @@ class SocialCubit extends Cubit<SocialStates>
     });
   }
 
+
+
   void creatPost({
     required String dateTime,
     required String text,
@@ -538,4 +539,6 @@ class SocialCubit extends Cubit<SocialStates>
       emit(SocialGetMessageSuccessState());
     });
   }
+
+
 }

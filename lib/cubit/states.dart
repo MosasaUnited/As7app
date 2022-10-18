@@ -82,6 +82,14 @@ class SocialCoverPickedSuccessState extends SocialStates {}
 
 class SocialCoverPickedErrorState extends SocialStates {}
 
+// States for Image Selection on Chats
+
+class SocialChatPickedImageSuccessState extends SocialStates {}
+
+class SocialChatPickedImageLoadingState extends SocialStates {}
+
+class SocialChatPickedImageErrorState extends SocialStates {}
+
 // States for Upload Profile Photo
 
 class SocialUploadProfileSuccessState extends SocialStates {}
