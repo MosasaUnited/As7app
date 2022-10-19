@@ -110,6 +110,7 @@ class ChatDetailsScreen extends StatelessWidget
                                   IconButton(
                                     onPressed: ()
                                     {
+                                      SocialCubit.get(context).getChatImage();
                                     },
                                     icon: Transform.translate(
                                       offset: const Offset(10, 0),
@@ -197,7 +198,9 @@ class ChatDetailsScreen extends StatelessWidget
       ),
       child: Text(
         model.text!,
+        semanticsLabel: model.chatImage,
       ),
+
     ),
   );
 }

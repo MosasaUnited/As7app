@@ -139,3 +139,15 @@ class SocialSendMessageSuccessState extends SocialStates {}
 class SocialSendMessageErrorState extends SocialStates {}
 
 class SocialGetMessageSuccessState extends SocialStates {}
+
+//States for Chat Images
+
+class SocialGetChatImagePickedSuccessState extends SocialStates{}
+
+class SocialGetChatImagePickedErrorState extends SocialStates{}
+
+class SocialUploadChatImagePickedSuccessState extends SocialStates{}
+
+class SocialUploadChatImagePickedErrorState extends SocialStates{}
+
+

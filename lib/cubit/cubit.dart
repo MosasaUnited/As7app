@@ -313,6 +313,56 @@ class SocialCubit extends Cubit<SocialStates>
     });
   }
 
+  File? chatImage;
+
+  Future<void> getChatImage() async
+  {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if(pickedFile != null)
+    {
+      chatImage = File(pickedFile.path);
+      emit(SocialGetChatImagePickedSuccessState());
+    }
+    else
+    {
+      print('No Image Selected');
+      emit(SocialGetChatImagePickedErrorState());
+    }
+  }
+
+  void uploadChatImage({
+  required receiverId,
+  required dateTime,
+  required text,
+})
+  {
+    emit(SocialUploadChatImagePickedSuccessState());
+    FirebaseStorage.instance.ref()
+        .child('users/${Uri.file(chatImage!.path).pathSegments.last}')
+        .putFile(chatImage!)
+        .then((value)
+    {
+      value.ref.getDownloadURL().then((value)
+      {
+        print(value);
+        sendMessage(
+            receiverId: receiverId,
+            dateTime: dateTime,
+            text: text,
+            chatImage: value,
+        );
+      }).catchError((error)
+      {
+        emit(SocialUploadChatImagePickedErrorState());
+      });
+    })
+        .catchError((error)
+    {
+      emit(SocialUploadChatImagePickedErrorState());
+    });
+  }
+
 
 
   void creatPost({
@@ -474,6 +524,7 @@ class SocialCubit extends Cubit<SocialStates>
   required String receiverId,
   required String dateTime,
   required String text,
+  String? chatImage,
 })
   {
     MessageModel model = MessageModel(
@@ -481,6 +532,7 @@ class SocialCubit extends Cubit<SocialStates>
       senderId: userModel!.uId,
       receiverId: receiverId,
       dateTime: dateTime,
+      chatImage: chatImage??'',
     );
 // set my chats
     FirebaseFirestore.instance.
@@ -539,6 +591,76 @@ class SocialCubit extends Cubit<SocialStates>
       emit(SocialGetMessageSuccessState());
     });
   }
+
+  void sendChatMessage({
+    required String receiverId,
+    required String dateTime,
+    required String text,
+  })
+  {
+    MessageModel model = MessageModel(
+      text: text,
+      senderId: userModel!.uId,
+      receiverId: receiverId,
+      dateTime: dateTime,
+    );
+// set my chats
+    FirebaseFirestore.instance.
+    collection('users').
+    doc(userModel!.uId).
+    collection('chats').
+    doc(receiverId).
+    collection('messages').
+    add(model.toMap()).
+    then((value)
+    {
+      emit(SocialSendMessageSuccessState());
+    }).catchError((error){
+      emit(SocialSendMessageErrorState());
+    });
+// set received chats
+    FirebaseFirestore.instance.
+    collection('users').
+    doc(receiverId).
+    collection('chats').
+    doc(userModel!.uId).
+    collection('messages').
+    add(model.toMap()).
+    then((value)
+    {
+      emit(SocialSendMessageSuccessState());
+    }).catchError((error){
+      emit(SocialSendMessageErrorState());
+    });
+  }
+
+
+  void getChatMessages({
+    required String receiverId,
+  })
+  {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event)
+    {
+
+      messages = [];
+
+      for (var element in event.docs)
+      {
+        messages.add(MessageModel.fromJson(element.data()));
+      }
+
+      emit(SocialGetMessageSuccessState());
+    });
+  }
+
 
 
 }
