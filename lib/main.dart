@@ -3,6 +3,7 @@ import 'package:as7app/shared/components/constants.dart';
 import 'package:as7app/shared/cubit/app_cubit.dart';
 import 'package:as7app/shared/cubit/states.dart';
 import 'package:as7app/shared/styles/themes.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,27 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  var token = await FirebaseMessaging.instance.getToken();
+
+  print(token);
+
+  FirebaseMessaging.onMessage.listen((event)
+  {
+    print(event.data.toString());
+    print('Success');
+  }).onError((error){
+    print('Error');
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((event)
+  {
+    print(event.data.toString());
+    print('Success');
+  }).onError((error){
+    print('Error');
+  });
+
 
   await CacheHelper.init();
 
