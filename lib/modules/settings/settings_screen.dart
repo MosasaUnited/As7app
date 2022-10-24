@@ -173,6 +173,7 @@ class SettingsScreen extends StatelessWidget {
                       ),),
                 ],
               ),
+              // Subscribe and Unsubscribe Topics
               Row(
                 children:
                 [
