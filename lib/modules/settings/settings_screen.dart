@@ -3,6 +3,7 @@ import 'package:as7app/cubit/states.dart';
 import 'package:as7app/modules/edit_profile/edit_profile_screen.dart';
 import 'package:as7app/shared/components/components.dart';
 import 'package:as7app/shared/styles/icon_broken.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -172,6 +173,34 @@ class SettingsScreen extends StatelessWidget {
                       ),),
                 ],
               ),
+              Row(
+                children:
+                [
+                  OutlinedButton(
+                      onPressed: ()
+                      {
+                        FirebaseMessaging.instance.subscribeToTopic('announcements');
+                        print('you are subscribed now ');
+                      },
+                      child: Text(
+                        'Subscribe'
+                      ),),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  OutlinedButton(
+                      onPressed: ()
+                      {
+                        FirebaseMessaging.instance.unsubscribeFromTopic('announcements');
+
+                        print('you are Unsubscribed now ');
+                      },
+                      child: Text(
+                        'Unsubscribe'
+                      ),),
+                ],
+              ),
+
             ],
           ),
         );
