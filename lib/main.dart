@@ -55,7 +55,7 @@ void main() async{
     print('Error');
   });
 
-  //Background
+  //Background Handler
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
 
